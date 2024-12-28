@@ -3,14 +3,26 @@ version: '3.8'
 
 services:
 
-  postgres-db:
-    image: postgres:15.3
+  mongo-db:
+    image: mongo:6.0.6
     restart: always
     environment:
-      POSTGRES_USER: products
-      POSTGRES_DB: store-products
-      POSTGRES_PASSWORD: 123456
+      MONGO_INITDB_ROOT_USERNAME: products
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: store-products
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./mongo:/data/db
     ports:
-      - 5432:5432
+      - 27018:27017
+
+#   postgres-db:
+#     image: postgres:15.3
+#     restart: always
+#     environment:
+#       POSTGRES_USER: products
+#       POSTGRES_DB: store-products
+#       POSTGRES_PASSWORD: 123456
+#     volumes:
+#       - ./postgres:/var/lib/postgresql/data
+#     ports:
+#       - 5432:5432

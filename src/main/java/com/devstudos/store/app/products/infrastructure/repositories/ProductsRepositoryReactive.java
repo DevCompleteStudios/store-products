@@ -7,4 +7,4 @@ import com.devstudos.store.app.products.domain.entities.Product;
 
 
 
-public interface ProductsRepository extends ReactiveMongoRepository<Product, String> {}
+public interface ProductsRepositoryReactive extends ReactiveMongoRepository<Product, String> {}

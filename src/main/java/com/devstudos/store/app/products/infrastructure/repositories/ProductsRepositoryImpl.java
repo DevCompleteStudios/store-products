@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
 import com.devstudos.store.app.products.domain.entities.Product;
+import com.devstudos.store.app.products.domain.errors.CustomException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,7 +35,8 @@ public class ProductsRepositoryImpl implements IProductsRepository {
     @Override
     @Transactional(readOnly = true)
     public Mono<Product> findById(String id) {
-        return reactive.findById(id);
+        return reactive.findById(id)
+            .switchIfEmpty(Mono.error(CustomException.notFound("Product not found")));
     }
 
     @Override
@@ -48,5 +50,5 @@ public class ProductsRepositoryImpl implements IProductsRepository {
     public Mono<Void> deleteById(String id) {
         return reactive.deleteById(id);
     }
-    
+
 }

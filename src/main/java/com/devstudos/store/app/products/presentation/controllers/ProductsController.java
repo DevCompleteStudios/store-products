@@ -30,7 +30,7 @@ public class ProductsController {
     private ProductsService service;
 
     @GetMapping
-    public Mono<ResponseEntity<?>> findAll( @ModelAttribute Mono<PaginationDto> dto ) {
+    public Mono<ResponseEntity<?>> findAll( @Validated @ModelAttribute Mono<PaginationDto> dto ) {
         return service.findAll(dto)
             .map( r -> ResponseEntity.status(r.getStatus()).body(r));
     }

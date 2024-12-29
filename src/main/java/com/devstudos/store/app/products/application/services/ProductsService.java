@@ -36,7 +36,7 @@ public class ProductsService {
     public Mono<ResponsePagination<Product>> findAll(Mono<PaginationDto> paginationDto) {
         return paginationDto
             .flatMap(r -> {
-                Pageable pageable = PageRequest.of(r.getLimit(), r.getOffset());
+                Pageable pageable = PageRequest.of(r.getPage(), r.getLimit());
                 Mono<List<Product>> productsMono = productsRepository.findAll(pageable).collectList();
                 Mono<Long> countMono = productsRepository.countAll();
                 // Mono<Long> countMono = Mono.just(2L);
@@ -46,6 +46,7 @@ public class ProductsService {
                     res.setData(products);
                     res.setCountElements(count);
                     res.setStatus(200);
+                    res.setMaxPages( Math.ceil( count / r.getLimit() ) );
                     return res;
                 });
             });

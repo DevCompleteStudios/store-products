@@ -1,6 +1,7 @@
 package com.devstudos.store.app.products.application.interfaces.repositories;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+
+import org.springframework.data.domain.Pageable;
 
 import com.devstudos.store.app.products.domain.entities.Product;
 

@@ -7,13 +7,13 @@ services:
     image: mongo:6.0.6
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: products
+      MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 123456
       MONGO_INITDB_DATABASE: store-products
     volumes:
       - ./mongo:/data/db
     ports:
-      - 27018:27017
+      - 27017:27017
 
 #   postgres-db:
 #     image: postgres:15.3

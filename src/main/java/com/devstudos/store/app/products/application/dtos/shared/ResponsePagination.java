@@ -1,33 +1,34 @@
 package com.devstudos.store.app.products.application.dtos.shared;
 
+
 import java.util.List;
 
 
 
 public class ResponsePagination<T> extends ResponseDto<List<T>> {
-    private Long countElements;
-    private int pages;
+    private int countElements;
+    private Long pages;
 
 
-    public ResponsePagination(int status, List<T> data, Long countElements, int pages) {
+    public ResponsePagination(){}
+
+    public ResponsePagination(int status, List<T> data, int countElements, Long pages) {
         super(status, data);
         this.countElements = countElements;
         this.pages = pages;
     }
 
-    public Long getCountElements() {
+    public int getCountElements() {
         return countElements;
     }
-    public void setCountElements(Long countElements) {
+    public void setCountElements(int countElements) {
         this.countElements = countElements;
     }
-    public int getPages() {
+    public Long getPages() {
         return pages;
     }
-    public void setPages(int pages) {
+    public void setPages(Long pages) {
         this.pages = pages;
     }
 
-
-    
 }

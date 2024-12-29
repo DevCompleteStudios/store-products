@@ -3,17 +3,19 @@ package com.devstudos.store.app.products.domain.entities;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.devstudos.store.app.products.application.interfaces.enums.ProductType;
 
 
-@Document
+@Document(collection = "products")
 public class Product {
 
     @Id
     private String id;
 
+    @Indexed(unique = true)
     private String name;
     private Double price;
     private String description;

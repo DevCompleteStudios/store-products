@@ -28,11 +28,11 @@ public class CreateProductDto {
     @Length(min = 10, max = 1000)
     private String description;
 
-    @NotNull
     private MultipartFile image;
     private Boolean isActive = true;
 
-    @Size(min = 0)
+    @Min(value = 0)
+    @Max(value = Long.MAX_VALUE)
     private Long stock = 999L;
     private ProductType productType = ProductType.ANY;
 

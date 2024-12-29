@@ -38,8 +38,15 @@ public class ProductsRepositoryImpl implements IProductsRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Mono<Long> countAll() {
         return reactive.count();
+    }
+
+    @Override
+    @Transactional
+    public Mono<Void> deleteById(String id) {
+        return reactive.deleteById(id);
     }
     
 }

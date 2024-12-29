@@ -1,8 +1,6 @@
 package com.devstudos.store.app.products.application.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +14,6 @@ import com.devstudos.store.app.products.application.dtos.shared.ResponsePaginati
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
 import com.devstudos.store.app.products.domain.entities.Product;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -52,6 +49,21 @@ public class ProductsService {
                     return res;
                 });
             });
+    }
+
+    public Mono<ResponseDto<Product>> findById( String id ){
+        return productsRepository.findById(id)
+            .map( r -> {
+                ResponseDto<Product> res = new ResponseDto<>();
+                res.setData(r);
+                res.setStatus(200);
+
+                return res;
+            });
+    }
+
+    public Mono<Void> deleteById(String id){
+        return productsRepository.deleteById(id);
     }
 
 }

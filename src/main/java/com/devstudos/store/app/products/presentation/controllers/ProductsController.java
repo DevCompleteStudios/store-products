@@ -37,12 +37,14 @@ public class ProductsController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<?>> findById(@PathVariable String id){
-        return null;
+        return service.findById(id)
+            .map( r -> ResponseEntity.status(r.getStatus()).body(r));
     }
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<?>> deleteById(@PathVariable String id){
-        return null;
+        return service.deleteById(id)
+            .map(r -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

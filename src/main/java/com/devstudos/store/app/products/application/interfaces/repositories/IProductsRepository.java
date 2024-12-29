@@ -16,4 +16,5 @@ public interface IProductsRepository {
     public Mono<Product> save( Product product );
     public Mono<Product> findById( String id );
     public Mono<Long> countAll();
+    public Mono<Void> deleteById(String id);
 }

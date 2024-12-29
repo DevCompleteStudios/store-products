@@ -15,4 +15,5 @@ public interface IProductsRepository {
     public Flux<Product> findAll(Pageable pageable);
     public Mono<Product> save( Product product );
     public Mono<Product> findById( String id );
+    public Mono<Long> countAll();
 }

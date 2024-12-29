@@ -1,5 +1,9 @@
 package com.devstudos.store.app.products.application.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +16,7 @@ import com.devstudos.store.app.products.application.dtos.shared.ResponsePaginati
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
 import com.devstudos.store.app.products.domain.entities.Product;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -31,22 +36,21 @@ public class ProductsService {
             .map( np -> new ResponseDto<>(200, np));
     }
 
-    public Mono<ResponsePagination<Product>> findAll(Mono<PaginationDto> paginationDto){
+    public Mono<ResponsePagination<Product>> findAll(Mono<PaginationDto> paginationDto) {
         return paginationDto
-            .flatMap( r -> {
+            .flatMap(r -> {
                 Pageable pageable = PageRequest.of(r.getLimit(), r.getOffset());
-
-                return productsRepository.findAll(pageable)
-                    .collectList()
-                    .map(products -> {
-                        ResponsePagination<Product> res = new ResponsePagination<>();
-
-                        res.setCountElements(products.size());
-                        res.setData(products);
-                        res.setPages(pageable.getOffset());
-                        res.setStatus(200);
-                        return res;
-                    });
+                Mono<List<Product>> productsMono = productsRepository.findAll(pageable).collectList();
+                Mono<Long> countMono = productsRepository.countAll();
+                // Mono<Long> countMono = Mono.just(2L);
+    
+                return Mono.zip(productsMono, countMono, (products, count) -> {
+                    ResponsePagination<Product> res = new ResponsePagination<>();
+                    res.setData(products);
+                    res.setCountElements(count);
+                    res.setStatus(200);
+                    return res;
+                });
             });
     }
 

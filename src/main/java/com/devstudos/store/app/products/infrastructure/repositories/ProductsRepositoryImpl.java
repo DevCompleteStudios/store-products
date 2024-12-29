@@ -22,7 +22,7 @@ public class ProductsRepositoryImpl implements IProductsRepository {
     @Override
     @Transactional(readOnly = true)
     public Flux<Product> findAll(Pageable pageable) {
-        return reactive.findAll();
+        return reactive.findAll(pageable);
     }
 
     @Override
@@ -35,6 +35,11 @@ public class ProductsRepositoryImpl implements IProductsRepository {
     @Transactional(readOnly = true)
     public Mono<Product> findById(String id) {
         return reactive.findById(id);
+    }
+
+    @Override
+    public Mono<Long> countAll() {
+        return reactive.count();
     }
     
 }

@@ -6,29 +6,21 @@ import java.util.List;
 
 
 public class ResponsePagination<T> extends ResponseDto<List<T>> {
-    private int countElements;
-    private Long pages;
+    private Long countElements;
 
 
     public ResponsePagination(){}
 
-    public ResponsePagination(int status, List<T> data, int countElements, Long pages) {
+    public ResponsePagination(int status, List<T> data, Long countElements) {
         super(status, data);
         this.countElements = countElements;
-        this.pages = pages;
     }
 
-    public int getCountElements() {
+    public Long getCountElements() {
         return countElements;
     }
-    public void setCountElements(int countElements) {
+    public void setCountElements(Long countElements) {
         this.countElements = countElements;
-    }
-    public Long getPages() {
-        return pages;
-    }
-    public void setPages(Long pages) {
-        this.pages = pages;
     }
 
 }

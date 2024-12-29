@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.devstudos.store.app.products.application.dtos.products.CreateProductDto;
+import com.devstudos.store.app.products.application.dtos.products.UpdateProductDto;
 import com.devstudos.store.app.products.application.dtos.shared.PaginationDto;
 import com.devstudos.store.app.products.application.dtos.shared.ResponseDto;
 import com.devstudos.store.app.products.application.dtos.shared.ResponsePagination;
@@ -66,5 +67,6 @@ public class ProductsService {
     public Mono<Void> deleteById(String id){
         return productsRepository.deleteById(id);
     }
+
 
 }

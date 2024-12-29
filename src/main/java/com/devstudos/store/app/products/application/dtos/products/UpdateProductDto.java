@@ -7,23 +7,16 @@ import com.devstudos.store.app.products.application.interfaces.enums.ProductType
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 
 
-
-
-public class CreateProductDto {
-
+public class UpdateProductDto {
     @Length(min = 5, max = 50)
-    @NotNull
     private String name;
 
-    @NotNull
     @Max(value = 999)
     @Min(value = 0)
     private Double price;
 
-    @NotNull
     @Length(min = 10, max = 1000)
     private String description;
 
@@ -78,5 +71,4 @@ public class CreateProductDto {
     public void setProductType(ProductType productType) {
         this.productType = productType;
     }
-    
 }

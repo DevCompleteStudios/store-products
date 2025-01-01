@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.devstudos.store.app.products.application.dtos.products.UpdateProductDto;
+
 
 
 
@@ -48,8 +50,9 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<?>> updateById( @PathVariable String id ){
-        return null;
+    public Mono<ResponseEntity<?>> updateById( @PathVariable String id, @Validated @RequestBody Mono<UpdateProductDto> dto ){
+        return service.update(id, dto)
+            .map(r -> ResponseEntity.status(r.getStatus()).body(r));
     }
 
     @PostMapping()

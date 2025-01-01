@@ -1,5 +1,7 @@
 package com.devstudos.store.app.products.application.services;
 
+import java.security.Provider;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.devstudios.store.app.commons.entities.Product;
 import com.devstudos.store.app.products.application.dtos.products.CreateProductDto;
+import com.devstudos.store.app.products.application.dtos.products.UpdateProductDto;
 import com.devstudos.store.app.products.application.dtos.shared.PaginationDto;
 import com.devstudos.store.app.products.application.dtos.shared.ResponseDto;
 import com.devstudos.store.app.products.application.dtos.shared.ResponsePagination;
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
+import com.devstudos.store.app.products.domain.errors.CustomException;
 
 import reactor.core.publisher.Mono;
 
@@ -48,7 +52,7 @@ public class ProductsService {
                 Mono<List<Product>> productsMono = productsRepository.findAll(pageable).collectList();
                 Mono<Long> countMono = productsRepository.countAll();
                 // Mono<Long> countMono = Mono.just(2L);
-    
+
                 return Mono.zip(productsMono, countMono, (products, count) -> {
                     ResponsePagination<Product> res = new ResponsePagination<>();
                     res.setData(products);
@@ -68,11 +72,33 @@ public class ProductsService {
                 res.setStatus(200);
 
                 return res;
-            });
+            })
+            .switchIfEmpty(Mono.error(CustomException.notFound("Product not found")));
     }
 
     public Mono<Void> deleteById(String id){
         return productsRepository.deleteById(id);
+    }
+
+    public Mono<ResponseDto<Product>> update( String id, Mono<UpdateProductDto> dto ){
+        return dto
+            .flatMap(p -> {
+                return productsRepository.findById(id)
+                    .switchIfEmpty(Mono.error(CustomException.notFound("Product not exists")))
+                    .flatMap( r -> {
+                        if(p.getIsActive() != null) r.setIsActive(p.getIsActive());
+                        if(p.getDescription() != null) r.setDescription(p.getDescription());
+                        if(p.getImage() != null) r.setImage("Image updated");
+                        if(p.getName() != null) r.setName(p.getName());
+                        if(p.getPrice() != null) r.setPrice(p.getPrice());
+                        if(p.getProductType() != null) r.setProductType(p.getProductType());
+                        if(p.getStock() != null) r.setStock(p.getStock());
+                        r.setUpdatedAt(LocalDateTime.now());
+
+                        return productsRepository.save(r);
+                    });
+            })
+            .map(prd -> new ResponseDto<>(200, prd));
     }
 
 

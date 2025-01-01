@@ -3,7 +3,7 @@ package com.devstudos.store.app.products.application.dtos.products;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devstudos.store.app.products.application.interfaces.enums.ProductType;
+import com.devstudios.store.app.commons.interfaces.enums.ProductType;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

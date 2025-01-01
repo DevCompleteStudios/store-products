@@ -5,10 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devstudios.store.app.commons.entities.Product;
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
-import com.devstudos.store.app.products.domain.entities.Product;
 import com.devstudos.store.app.products.domain.errors.CustomException;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

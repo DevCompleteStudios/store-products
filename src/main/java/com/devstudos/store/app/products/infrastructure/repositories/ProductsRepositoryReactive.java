@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-import com.devstudios.store.app.commons.entities.Product;
+import com.devstudios.store.app.commons.entities.store.Product;
 
 import reactor.core.publisher.Flux;
 

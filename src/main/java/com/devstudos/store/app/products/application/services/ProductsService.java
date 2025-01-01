@@ -9,14 +9,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.devstudios.store.app.commons.entities.Product;
+import com.devstudios.store.app.commons.dtos.shared.PaginationDto;
+import com.devstudios.store.app.commons.dtos.shared.ResponseDto;
+import com.devstudios.store.app.commons.dtos.shared.ResponsePaginationDto;
+import com.devstudios.store.app.commons.entities.store.Product;
+import com.devstudios.store.app.commons.errors.CustomException;
 import com.devstudos.store.app.products.application.dtos.products.CreateProductDto;
 import com.devstudos.store.app.products.application.dtos.products.UpdateProductDto;
-import com.devstudos.store.app.products.application.dtos.shared.PaginationDto;
-import com.devstudos.store.app.products.application.dtos.shared.ResponseDto;
-import com.devstudos.store.app.products.application.dtos.shared.ResponsePagination;
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
-import com.devstudos.store.app.products.domain.errors.CustomException;
 
 import reactor.core.publisher.Mono;
 
@@ -45,7 +45,7 @@ public class ProductsService {
             .map( np -> new ResponseDto<>(200, np));
     }
 
-    public Mono<ResponsePagination<Product>> findAll(Mono<PaginationDto> paginationDto) {
+    public Mono<ResponsePaginationDto<Product>> findAll(Mono<PaginationDto> paginationDto) {
         return paginationDto
             .flatMap(r -> {
                 Pageable pageable = PageRequest.of(r.getPage(), r.getLimit());
@@ -54,7 +54,7 @@ public class ProductsService {
                 // Mono<Long> countMono = Mono.just(2L);
 
                 return Mono.zip(productsMono, countMono, (products, count) -> {
-                    ResponsePagination<Product> res = new ResponsePagination<>();
+                    ResponsePaginationDto<Product> res = new ResponsePaginationDto<>();
                     res.setData(products);
                     res.setCountElements(count);
                     res.setStatus(200);

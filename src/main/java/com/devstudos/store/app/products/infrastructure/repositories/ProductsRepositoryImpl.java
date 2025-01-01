@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devstudios.store.app.commons.entities.Product;
+import com.devstudios.store.app.commons.entities.store.Product;
 import com.devstudos.store.app.products.application.interfaces.repositories.IProductsRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

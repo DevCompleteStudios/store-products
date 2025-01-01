@@ -3,7 +3,7 @@ package com.devstudos.store.app.products.application.interfaces.repositories;
 
 import org.springframework.data.domain.Pageable;
 
-import com.devstudios.store.app.commons.entities.Product;
+import com.devstudios.store.app.commons.entities.store.Product;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

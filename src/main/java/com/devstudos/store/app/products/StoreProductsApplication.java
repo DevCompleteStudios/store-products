@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 
 @SpringBootApplication
-@EntityScan({"com.devstudios.store.app.commons.entities"})
+@EntityScan({"com.devstudios.store.app.commons.entities.store"})
 @EnableMongoAuditing
 public class StoreProductsApplication {
 

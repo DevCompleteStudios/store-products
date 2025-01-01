@@ -2,8 +2,8 @@ package com.devstudos.store.app.products.presentation.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devstudios.store.app.commons.dtos.shared.PaginationDto;
 import com.devstudos.store.app.products.application.dtos.products.CreateProductDto;
-import com.devstudos.store.app.products.application.dtos.shared.PaginationDto;
 import com.devstudos.store.app.products.application.services.ProductsService;
 
 import reactor.core.publisher.Mono;
